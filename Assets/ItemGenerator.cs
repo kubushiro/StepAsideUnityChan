@@ -27,8 +27,11 @@ public class ItemGenerator : MonoBehaviour
     //Unityちゃんオブジェクト
     private GameObject unitychan;
 
-    //ゴールからUnityちゃんまでの距離の差
+    //アイテム生成位置
     private float ZDifference;
+
+    //最後にアイテムを生成した際のZ座標を記憶するための変数
+    private float lastGeneratePosZ;
 
     // Start is called before the first frame update
     void Start()
@@ -37,6 +40,7 @@ public class ItemGenerator : MonoBehaviour
         //発展課題
         //Unityちゃんのオブジェクトを取得
         this.unitychan = GameObject.Find("unitychan");
+        this.lastGeneratePosZ = 50;
 
         //一定の距離ごとにアイテムを生成
         for (int i = startPos; i < startPos + 50; i += 15)
@@ -87,13 +91,11 @@ public class ItemGenerator : MonoBehaviour
     {
 
         //発展課題
-        this.ZDifference = goalPos - this.unitychan.transform.position.z + 40;
-
+        this.ZDifference = this.unitychan.transform.position.z + 50; 
 
         //一定の距離ごとにアイテムを生成
-        if(this.ZDifference % 15 == 0)
-        {
-            Debug.Log(this.ZDifference);
+        if (this.unitychan.transform.position.z - lastGeneratePosZ >= 15 && this.ZDifference < goalPos )
+        { 
             //生成するアイテムをランダムで決定
             int num = Random.Range(1, 11);
             if (num <= 2)
@@ -130,6 +132,9 @@ public class ItemGenerator : MonoBehaviour
                     }
                 }
             }
+            //最後にアイテムを生成した際のUnityちゃんのZ座標
+            this.lastGeneratePosZ = this.unitychan.transform.position.z;
+
         }
     }
 }
