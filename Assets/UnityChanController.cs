@@ -90,8 +90,6 @@ public class UnityChanController : MonoBehaviour
         //Unityちゃんを矢印キーまたはボタンに応じて左右に遷移させる
         if ((Input.GetKey(KeyCode.LeftArrow) || this.isLButtonDown) && -this.movableRange < this.transform.position.x)
         {
-            //ログを出す
-            Debug.Log(this.isLButtonDown);
 
             //左方向への速度を代入
             inputVelocityX = -this.velocityX;
